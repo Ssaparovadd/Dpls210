@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How students describe becoming Kazakh speakers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=PT+Sans:wght@400;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Pinyon+Script&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --burgundy-900:#2E0912;
+    --burgundy-800:#420D1C;
+    --burgundy-700:#6B1626;
+    --burgundy-500:#9E2A3D;
+    --gold:#B99257;
+    --gold-dim:#8A6B41;
+    --parchment:#F2E8DA;
+    --parchment-dim:#E7D9C3;
+    --ink:#241014;
+    --cream:#F4E9DC;
+    --serif:'PT Serif', Georgia, 'Times New Roman', serif;
+    --sans:'PT Sans', 'Segoe UI', Arial, sans-serif;
+    --display:'Playfair Display', var(--serif);
+    --script:'Pinyon Script', cursive;
+    --handwrite:'Caveat', cursive;
+    --crimson:#C6394D;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){ --parchment:#F2E8DA; --ink:#241014; }
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    margin:0;
+    font-family:var(--sans);
+    background:var(--parchment);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--gold); color:var(--burgundy-900); }
+
+  .deck{
+    height:100svh;
+    overflow-y:auto;
+    scroll-snap-type:y mandatory;
+    scroll-behavior:smooth;
+  }
+  section{
+    min-height:100svh;
+    width:100%;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    display:flex;
+    position:relative;
+    padding:clamp(1.5rem,4vw,3.5rem) clamp(1.25rem,6vw,5rem);
+  }
+  .light{ background:var(--parchment); color:var(--ink); }
+  .dark{ background:var(--burgundy-900); color:var(--cream); }
+
+  .frame{
+    max-width:1100px;
+    margin:auto;
+    width:100%;
+    display:grid;
+    grid-template-columns:min-content 1fr;
+    column-gap:clamp(1.25rem,4vw,3.5rem);
+    align-items:start;
+  }
+  .idx{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:clamp(1rem,1.6vw,1.2rem);
+    opacity:.55;
+    padding-top:.3rem;
+    white-space:nowrap;
+  }
+  .dark .idx{ color:var(--gold); opacity:.8; }
+
+  h1,h2,h3{ font-family:var(--serif); font-weight:700; margin:0 0 .6em 0; line-height:1.08; }
+  h2{ font-size:clamp(1.7rem,3.4vw,2.6rem); }
+  p{ margin:0 0 1.1em 0; }
+  .lede{
+    font-family:var(--serif);
+    font-size:clamp(1.05rem,1.6vw,1.28rem);
+    line-height:1.55;
+    max-width:62ch;
+  }
+  .body-text{ font-size:1rem; line-height:1.65; max-width:64ch; }
+  .breather{ font-family:var(--script); color:var(--crimson); font-size:clamp(1.7rem,4.4vw,2.6rem); line-height:1; margin-bottom:.25em; display:block; }
+  .rule{ border:none; border-top:1px solid var(--gold-dim); opacity:.4; margin:1.4em 0; max-width:64ch; }
+  .bullets{ list-style:none; margin:0; padding:0; max-width:64ch; }
+  .bullets li{ position:relative; padding-left:1.3em; margin:.55em 0; font-size:1rem; line-height:1.5; }
+  .bullets li::before{ content:"—"; position:absolute; left:0; color:var(--gold); }
+  .dark .bullets li::before{ color:var(--gold); }
+
+  a{ color:inherit; }
+
+  /* ---------- COVER ---------- */
+  #s0{ background:var(--burgundy-900); color:var(--cream); overflow:hidden; flex-direction:column; padding:0; }
+  .cover-topbar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:clamp(1.4rem,3vw,2.2rem) clamp(1.4rem,4vw,3rem);
+    position:relative; z-index:3;
+  }
+  .cover-name{ font-family:var(--serif); font-style:italic; font-size:1.05rem; opacity:.9; }
+  .cover-links{ display:flex; gap:clamp(1.2rem,3vw,2.2rem); }
+  .cover-links button{
+    background:none; border:none; color:var(--cream); font-family:var(--sans);
+    font-size:.9rem; opacity:.75; cursor:pointer; padding:0; transition:opacity .2s;
+  }
+  .cover-links button:hover{ opacity:1; }
+  .cover-wrap{ position:relative; flex:1; display:flex; align-items:center; padding:0 clamp(1.4rem,4vw,3rem); }
+  .cover-inner{ position:relative; max-width:960px; margin:0 auto; width:100%; z-index:2; }
+  .ghost{
+    position:absolute; font-family:var(--serif); font-weight:700;
+    color:var(--gold); user-select:none; pointer-events:none; white-space:nowrap;
+    z-index:0;
+  }
+  .ghost-1{ top:2%; left:-3%; font-size:clamp(5rem,16vw,11rem); opacity:.06; transform:rotate(-4deg); }
+  .ghost-2{ bottom:-4%; right:-4%; font-size:clamp(4rem,13vw,9rem); opacity:.06; transform:rotate(3deg); }
+  .star{ position:absolute; top:-6%; right:8%; width:clamp(3.5rem,7vw,5.5rem); z-index:1; opacity:.9; }
+  .accent-star{ position:absolute; z-index:1; pointer-events:none; }
+  .dark .accent-star path, .dark .accent-star line{ fill:var(--gold); stroke:var(--gold); }
+  .light .accent-star path, .light .accent-star line{ fill:var(--burgundy-500); stroke:var(--burgundy-500); }
+  .hero-title{ position:relative; z-index:2; margin:0; }
+  .hero-title .line{ display:block; line-height:.95; white-space:nowrap; }
+  .hero-title .script-word{
+    font-family:var(--script); color:var(--crimson);
+    font-size:clamp(3.2rem,9vw,6.5rem); font-weight:400;
+  }
+  .hero-title .serif-word{
+    font-family:var(--display); font-weight:900; font-style:italic;
+    color:var(--crimson); font-size:clamp(2.9rem,9.5vw,7.2rem);
+    margin-top:clamp(-1.2rem,-2.6vw,-0.5rem); letter-spacing:-.01em;
+  }
+  .cover-sub{
+    font-family:var(--sans); font-size:1rem; opacity:.82; margin-top:1.2em; max-width:46ch; position:relative; z-index:2;
+  }
+  .cover-botbar{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    padding:clamp(1.4rem,3vw,2.2rem) clamp(1.4rem,4vw,3rem);
+    font-family:var(--sans); font-size:.9rem; opacity:.7; position:relative; z-index:3;
+  }
+
+  /* ---------- LIT REVIEW GROUPS ---------- */
+  .groups{ display:grid; grid-template-columns:repeat(3, 1fr); gap:.9rem; max-width:100%; align-items:stretch; position:relative; }
+  .group{
+    border-left:3px solid var(--gold);
+    padding:.2rem 0 .2rem 1.1rem;
+    background:var(--parchment-dim);
+    color:var(--ink);
+    border-radius:0 6px 6px 0;
+    padding-top:.55rem; padding-bottom:.55rem; padding-right:1rem;
+    display:flex; flex-direction:column; height:100%;
+  }
+  .group h3{ font-size:.98rem; margin-bottom:.2em; }
+  .group-head{ display:flex; align-items:center; gap:.6rem; margin-bottom:.3em; }
+  .group-badge{
+    width:1.85rem; height:1.85rem; flex:0 0 auto;
+    background:var(--burgundy-700); color:var(--cream);
+    clip-path:polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--sans); font-weight:700; font-size:.72rem;
+  }
+  .group .tag{ font-family:var(--sans); font-size:.72rem; color:var(--burgundy-700); font-weight:700; }
+  .group dl{ margin:.3em 0 0 0; font-size:.84rem; }
+  .group dt{ font-weight:700; margin-top:.35em; color:var(--burgundy-700); }
+  .group dt::before{ content:"✦ "; color:var(--gold); font-weight:400; }
+  .group dd{ margin:.1em 0 0 1.05em; }
+
+  /* ---------- FRAMEWORK CONCEPTS ---------- */
+  .concepts{ display:flex; flex-direction:column; gap:1.35rem; max-width:70ch; margin-top:.8em; }
+  .concept{ display:grid; grid-template-columns:2.2rem 1fr; gap:.9rem; align-items:baseline; }
+  .concept .n{ font-family:var(--serif); font-style:italic; opacity:.5; font-size:1.1rem; }
+  .concept h3{ font-size:1.25rem; margin-bottom:.25em; }
+  .concept p{ margin:0; font-size:1.05rem; line-height:1.5; }
+
+  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:2.4rem; max-width:72ch; margin-top:.6em; }
+  @media (max-width:700px){ .two-col{ grid-template-columns:1fr; gap:1.4rem; } }
+  .two-col h3{ font-size:1rem; color:var(--gold); }
+  .dark .two-col h3{ color:var(--gold); }
+  .light .two-col h3{ color:var(--burgundy-700); }
+
+  .badge{
+    display:inline-block; font-family:var(--sans); font-size:.75rem;
+    border:1px solid var(--gold-dim); border-radius:999px; padding:.25em .8em;
+    margin-bottom:1.1em; opacity:.85;
+  }
+
+  blockquote{
+    font-family:var(--serif); font-style:italic; font-size:clamp(1.1rem,2vw,1.4rem);
+    line-height:1.55; max-width:58ch; margin:.4em 0 0 0; border-left:2px solid var(--gold);
+    padding-left:1em;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed; right:clamp(.8rem,2vw,1.6rem); bottom:clamp(1.6rem,4vw,2.6rem);
+    display:flex; flex-direction:column; gap:.55rem; z-index:10;
+  }
+  .nav button{
+    width:13px; height:13px; border:none;
+    background:var(--gold); padding:0; cursor:pointer; opacity:.4;
+    clip-path:polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    transition:opacity .2s, transform .2s;
+  }
+  .nav button[aria-current="true"]{ opacity:1; transform:scale(1.3); }
+  .counter{
+    position:fixed; left:clamp(.9rem,2vw,1.8rem); bottom:clamp(.9rem,2vw,1.6rem);
+    font-family:var(--sans); font-size:.78rem; letter-spacing:.03em; opacity:.55; z-index:10;
+    color:var(--ink); mix-blend-mode:difference;
+  }
+  @media (max-width:640px){
+    .nav{ right:.6rem; gap:.4rem; }
+    .frame{ grid-template-columns:1fr; }
+    .idx{ display:none; }
+    .cover-links{ gap:.9rem; }
+    .cover-links button{ font-size:.78rem; }
+    .star{ top:-2%; right:4%; width:2.6rem; }
+    .groups{ grid-template-columns:1fr; }
+  }
+  @media (min-width:641px) and (max-width:900px){
+    .groups{ grid-template-columns:1fr 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .deck{ scroll-behavior:auto; }
+  }
+
+  .not-graded{
+    display:inline-block; font-family:var(--sans); font-weight:700; font-size:.78rem;
+    color:var(--burgundy-700); border:1px solid var(--burgundy-500); border-radius:4px;
+    padding:.25em .65em; margin-bottom:1.2em; letter-spacing:.03em;
+  }
+  #s7 h2{ font-family:var(--serif); font-style:italic; font-weight:700; color:var(--burgundy-700); font-size:clamp(1.9rem,4.4vw,2.9rem); }
+  #s7 h3{ font-family:var(--serif); font-style:italic; font-weight:700; color:var(--burgundy-700); font-size:1.15rem; margin-bottom:.25em; }
+</style>
+</head>
+<body>
+
+<div class="counter" id="counter">01 / 11</div>
+<nav class="nav" id="nav" aria-label="Section navigation"></nav>
+
+<main class="deck" id="deck">
+
+  <!-- 0. COVER -->
+  <section id="s0" class="dark" data-title="Cover">
+    <div class="cover-topbar">
+      <span class="cover-name">Dari</span>
+      <div class="cover-links">
+        <button data-jump="s1">Question</button>
+        <button data-jump="s5">Framework</button>
+        <button data-jump="s4">Sources</button>
+      </div>
+    </div>
+    <div class="cover-wrap">
+      <span class="ghost ghost-1">тіл</span>
+      <span class="ghost ghost-2">язык</span>
+      <div class="cover-inner">
+        <svg class="star" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M50 2 L57 44 L98 50 L57 56 L50 98 L43 56 L2 50 L43 44 Z" fill="var(--gold)"/>
+          <path d="M78 8 L74 30 L96 26" stroke="var(--gold)" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <h1 class="hero-title">
+          <span class="line script-word">Between</span>
+          <span class="line serif-word">Languages</span>
+        </h1>
+        <p class="cover-sub">An interpretivist proposal on university students in Kazakhstan who have shifted to Kazakh as their primary language, 2025–2026.</p>
+      </div>
+    </div>
+    <div class="cover-botbar">
+      <span>PLS 210</span>
+      <span>2025–2026</span>
+    </div>
+  </section>
+
+  <!-- 1. RESEARCH QUESTION -->
+  <section id="s1" class="light" data-title="Research question">
+    <svg class="accent-star" style="top:8%;right:9%;width:2.6rem;opacity:.4" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 2 L57 44 L98 50 L57 56 L50 98 L43 56 L2 50 L43 44 Z"/></svg>
+    <div class="frame">
+      <div class="idx">01</div>
+      <div>
+        <h2>Research question</h2>
+        <p class="lede">"How do university students in Kazakhstan who have shifted to Kazakh as their primary language describe this shift during 2025–2026?"</p>
+        <hr class="rule">
+        <ul class="bullets">
+          <li><strong>Empirical</strong>, not normative — what students say, not what they should do</li>
+          <li><strong>Population</strong> — students who have already shifted, not the general student body</li>
+          <li><strong>Context / time</strong> — universities in Kazakhstan, 2025–2026</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. EPISTEMOLOGICAL POSITIONING -->
+  <section id="s2" class="dark" data-title="Epistemological positioning">
+    <svg class="accent-star" style="bottom:10%;left:6%;width:2.1rem;opacity:.45" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 2 L57 44 L98 50 L57 56 L50 98 L43 56 L2 50 L43 44 Z"/></svg>
+    <div class="frame">
+      <div class="idx">02</div>
+      <div>
+        <h2>Epistemological positioning</h2>
+        <p class="lede">This study sits in the <strong>interpretivist</strong> tradition.</p>
+        <ul class="bullets">
+          <li>Social reality is constructed through how people interpret their own experience (Schwartz-Shea &amp; Yanow, 2012)</li>
+          <li>Language shift is bound to identity and meaning — not reducible to a proficiency score</li>
+          <li>The question asks what the shift <em>means</em> to the people living it</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. CONTRIBUTION -->
+  <section id="s3" class="light" data-title="Contribution">
+    <svg class="accent-star" style="top:12%;left:8%;width:1.8rem;opacity:.4" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 2 L57 44 L98 50 L57 56 L50 98 L43 56 L2 50 L43 44 Z"/></svg>
+    <svg class="accent-star" style="bottom:8%;right:6%;width:3rem;opacity:.3" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 2 L57 44 L98 50 L57 56 L50 98 L43 56 L2 50 L43 44 Z"/></svg>
+    <div class="frame">
+      <div class="idx">03</div>
+      <div>
+        <h2>Contribution</h2>
+        <div class="two-col">
+          <div>
+            <h3>Empirical</h3>
+            <p class="body-text">Fills the gap: student narratives are missing from work centred on policy (Kucherbayeva &amp; Smagulova, 2023; Zhunussova et al., 2023).</p>
+          </div>
+          <div>
+            <h3>Comparative</h3>
+            <p class="body-text">Speaks to international language revitalisation research (Warditz et al., 2026).</p>
+          </div>
+        </div>
+        <div class="two-col" style="margin-top:1.6rem;">
+          <div>
+            <h3>Methodological</h3>
+            <p class="body-text">Demonstrates an interpretive approach in a field dominated by positivist work.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. LITERATURE REVIEW -->
+  <section id="s4" class="dark" data-title="Literature review">
+    <svg class="accent-star" style="top:6%;right:5%;width:2.4rem;opacity:.4" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 2 L57 44 L98 50 L57 56 L50 98 L43 56 L2 50 L43 44 Z"/></svg>
+    <div class="frame">
+      <div class="idx">04</div>
+      <div>
+        <span class="breather">ideology, not choice</span>
+        <h2>Literature review</h2>
+        <p class="body-text" style="max-width:70ch;">Language reads as ideology, not preference: Russian = prestige, Kazakh = authenticity.</p>
+        <div class="groups">
+          <div class="group">
+            <div class="group-head"><span class="group-badge">A</span><span class="tag">Higher education, medium of instruction, identity</span></div>
+            <h3>Kucherbayeva &amp; Smagulova (2023); Zhunussova et al. (2023)</h3>
+            <dl>
+              <dt>Focus</dt><dd>Kazakh-medium instruction, English-medium instruction, language policy, student identity and ideology</dd>
+              <dt>Participants / method</dt><dd>University students in Astana and across Kazakhstan; qualitative interviews and focus groups</dd>
+              <dt>Relevance</dt><dd>Closest to this question — how university students narrate studying in Kazakh or EMI, and how they talk about identity and structural constraints</dd>
+            </dl>
+          </div>
+          <div class="group">
+            <div class="group-head"><span class="group-badge">B</span><span class="tag">Early socialisation and developmental foundations</span></div>
+            <h3>Smagulova (2013); Kyuchuk et al. (2025)</h3>
+            <dl>
+              <dt>Focus</dt><dd>"Baby talk," caregiver language choice, preschool narratives, theory of mind, early bilingualism</dd>
+              <dt>Participants / method</dt><dd>Urban Kazakh families in Almaty; preschool children</dd>
+              <dt>Relevance</dt><dd>Explains the early patterns behind later shift or reversal — why Russian often becomes the language of agency while Kazakh is confined to affect and infancy</dd>
+            </dl>
+          </div>
+          <div class="group">
+            <div class="group-head"><span class="group-badge">C</span><span class="tag">Structural and grammatical consequences of reversal</span></div>
+            <h3>Warditz et al. (2026)</h3>
+            <dl>
+              <dt>Focus</dt><dd>Aspectuality, nativeness, heritage Kazakh, reversal of language shift</dd>
+              <dt>Participants / method</dt><dd>95 participants, mostly university students in Almaty; quantitative survey</dd>
+              <dt>Relevance</dt><dd>Shows what happens to core Kazakh grammar when speakers shift back from Russian dominance — useful for "nativeness" and variability in students' Kazakh</dd>
+            </dl>
+          </div>
+        </div>
+        <p class="body-text" style="margin-top:.9rem; max-width:70ch; font-size:.92rem;"><strong>The gap:</strong> how students who shifted <em>to</em> Kazakh describe that choice, in their own words, 2025–2026.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. ANALYTICAL FRAMEWORK -->
+  <section id="s5" class="light" data-title="Analytical framework">
+    <svg class="accent-star" style="top:9%;right:7%;width:2.2rem;opacity:.4" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 2 L57 44 L98 50 L57 56 L50 98 L43 56 L2 50 L43 44 Z"/></svg>
+    <div class="frame">
+      <div class="idx">05</div>
+      <div>
+        <span class="breather">starting points, not predictions</span>
+        <h2>Analytical framework</h2>
+        <p class="body-text" style="max-width:68ch;"><strong>Sensitising concepts</strong> — orient the study without predetermining findings.</p>
+        <div class="concepts">
+          <div class="concept">
+            <div class="n">i.</div>
+            <div><h3>Reverse language shift</h3><p>An ongoing, uneven process — not a direct policy effect (Warditz et al., 2026).</p></div>
+          </div>
+          <div class="concept">
+            <div class="n">ii.</div>
+            <div><h3>Language beliefs and values</h3><p>How students weigh Kazakh vs. Russian across settings (Smagulova, 2013; Kucherbayeva &amp; Smagulova, 2023).</p></div>
+          </div>
+          <div class="concept">
+            <div class="n">iii.</div>
+            <div><h3>Language shift as ideological arena</h3><p>Choices as part of larger power relations — Soviet legacy, nation-building (Kucherbayeva &amp; Smagulova, 2023).</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. EXPECTATIONS -->
+  <section id="s8" class="dark" data-title="Expectations">
+    <svg class="accent-star" style="top:9%;left:7%;width:2rem;opacity:.4" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 2 L57 44 L98 50 L57 56 L50 98 L43 56 L2 50 L43 44 Z"/></svg>
+    <div class="frame">
+      <div class="idx">06</div>
+      <div>
+        <span class="breather">assumptions, held loosely</span>
+        <h2>Expectations</h2>
+        <div class="concepts">
+          <div class="concept">
+            <div class="n">i.</div>
+            <div><h3>Decolonial choice, personal activism, or both</h3><p>How students may frame the shift.</p></div>
+          </div>
+          <div class="concept">
+            <div class="n">ii.</div>
+            <div><h3>Policy vs. lived experience</h3><p>Contradictions between official language policy and what students actually experience.</p></div>
+          </div>
+          <div class="concept">
+            <div class="n">iii.</div>
+            <div><h3>Diverse voices</h3><p>Responses may be both similar and contradictory.</p></div>
+          </div>
+          <div class="concept">
+            <div class="n">iv.</div>
+            <div><h3>Open to surprise</h3><p>An abductive approach — questions or methods may shift once I start listening.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. POSITIONALITY -->
+  <section id="s9" class="light" data-title="Positionality">
+    <svg class="accent-star" style="bottom:11%;right:8%;width:2.6rem;opacity:.4" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 2 L57 44 L98 50 L57 56 L50 98 L43 56 L2 50 L43 44 Z"/></svg>
+    <div class="frame">
+      <div class="idx">07</div>
+      <div>
+        <span class="breather">inside, not outside</span>
+        <h2>Positionality</h2>
+        <p class="lede">I am not a neutral observer.</p>
+        <div class="concepts">
+          <div class="concept">
+            <div class="n">i.</div>
+            <div><h3>Who I am</h3><p>Grew up in a bilingual environment; resident of Kazakhstan.</p></div>
+          </div>
+          <div class="concept">
+            <div class="n">ii.</div>
+            <div><h3>Inside the hierarchies</h3><p>I am part of the same linguistic hierarchies I study.</p></div>
+          </div>
+          <div class="concept">
+            <div class="n">iii.</div>
+            <div><h3>The risk</h3><p>My position may shape what I notice and how I read participants' words.</p></div>
+          </div>
+          <div class="concept">
+            <div class="n">iv.</div>
+            <div><h3>What I will do</h3><p>Reflect throughout on how my position influences data collection and the final results.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. AI TRANSPARENCY -->
+  <section id="s6" class="dark" data-title="AI transparency">
+    <svg class="accent-star" style="bottom:12%;right:9%;width:2.8rem;opacity:.4" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 2 L57 44 L98 50 L57 56 L50 98 L43 56 L2 50 L43 44 Z"/></svg>
+    <div class="frame">
+      <div class="idx">08</div>
+      <div>
+        <h2>AI transparency statement</h2>
+        <blockquote>I came up with the research question and topic myself, and read and evaluated every source independently. I used AI to check my understanding of the articles' main ideas and to work through certain concepts and vocabulary. For this page, I worked with AI to design and code it and to walk through publishing it on GitHub Pages — the writing and the research decisions are mine.</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. CLOSING (UNGRADED) -->
+  <section id="s7" class="light" data-title="Reflection">
+    <svg class="accent-star" style="top:8%;right:8%;width:2.3rem;opacity:.4" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 2 L57 44 L98 50 L57 56 L50 98 L43 56 L2 50 L43 44 Z"/></svg>
+    <div class="frame">
+      <div class="idx">09</div>
+      <div>
+        <span class="not-graded">Not graded</span>
+        <h2>What working with AI helped me understand — and what I still don't</h2>
+        <div class="two-col">
+          <div>
+            <h3>What it helped me understand</h3>
+            <ul class="bullets">
+              <li>The difference between a <em>gap</em> and a <em>puzzle</em> — and why this project is a puzzle</li>
+              <li>Sensitising concepts vs. a hypothesis — starting points to listen with, not variables to predict</li>
+            </ul>
+          </div>
+          <div>
+            <h3>What I still don't fully understand</h3>
+            <ul class="bullets">
+              <li>How far to take positionality in practice — how much to disclose to participants</li>
+              <li>Where reflexivity stops helping and starts distracting from their narratives</li>
+              <li>How to build an interview protocol loose enough to stay abductive, structured enough to answer the question</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. THANK YOU -->
+  <section id="s10" class="dark" data-title="Thank you" style="align-items:center;overflow:hidden;">
+    <span class="ghost ghost-1">рахмет</span>
+    <span class="ghost ghost-2">спасибо</span>
+    <div class="cover-inner">
+      <svg class="star" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M50 2 L57 44 L98 50 L57 56 L50 98 L43 56 L2 50 L43 44 Z" fill="var(--gold)"/>
+        <path d="M78 8 L74 30 L96 26" stroke="var(--gold)" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <h2 class="hero-title">
+        <span class="line script-word">Thank</span>
+        <span class="line serif-word">you</span>
+      </h2>
+      <p class="cover-sub">Questions and discussion welcome.</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  const sections = Array.from(document.querySelectorAll('main.deck > section'));
+  const nav = document.getElementById('nav');
+  const counter = document.getElementById('counter');
+  const total = sections.length;
+
+  sections.forEach((sec, i) => {
+    const b = document.createElement('button');
+    b.setAttribute('aria-label', sec.dataset.title || ('Section ' + (i+1)));
+    b.addEventListener('click', () => sec.scrollIntoView({behavior:'smooth'}));
+    nav.appendChild(b);
+  });
+  const dots = Array.from(nav.children);
+
+  function pad(n){ return n < 10 ? '0'+n : ''+n; }
+
+  document.querySelectorAll('.cover-links button[data-jump]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.jump);
+      if(target) target.scrollIntoView({behavior:'smooth'});
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const i = sections.indexOf(entry.target);
+        dots.forEach((d,j) => d.setAttribute('aria-current', j===i ? 'true' : 'false'));
+        counter.textContent = pad(i+1) + ' / ' + pad(total);
+      }
+    });
+  }, { root: document.getElementById('deck'), threshold: 0.55 });
+  sections.forEach(s => observer.observe(s));
+
+  document.addEventListener('keydown', (e) => {
+    const deck = document.getElementById('deck');
+    const current = sections.findIndex(s => {
+      const r = s.getBoundingClientRect();
+      return r.top >= -10 && r.top < window.innerHeight * 0.5;
+    });
+    const idx = current === -1 ? 0 : current;
+    if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){
+      e.preventDefault();
+      const next = sections[Math.min(idx+1, total-1)];
+      next.scrollIntoView({behavior:'smooth'});
+    } else if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){
+      e.preventDefault();
+      const prev = sections[Math.max(idx-1, 0)];
+      prev.scrollIntoView({behavior:'smooth'});
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
